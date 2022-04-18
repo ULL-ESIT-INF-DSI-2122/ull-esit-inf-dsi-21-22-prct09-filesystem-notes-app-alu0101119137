@@ -1,4 +1,5 @@
 import {AddReduce} from "./addReduce";
+import {SubReduce} from "./subReduce";
 import {Reduce} from "./reduce";
 /**
  * Client code
@@ -7,6 +8,6 @@ function clientCode(reduceOperation: Reduce) {
   reduceOperation.run();
 }
 
-// const r = new AddReduce([1, 4, 10]);
 clientCode(new AddReduce([1, 4, 10]));
-// console.log(r);
+clientCode(new SubReduce([10, 8]));
+
