@@ -1,5 +1,5 @@
 {
-  "entrypoints": [
+  "entryPoints": [
     "./src/modificacion/reduce.ts",
     "./src/modificacion/addReduce.ts",
     "./src/modificacion/index.ts"
