@@ -1,11 +1,14 @@
-import * as chalk from 'chalk';
-
 /**
  * Aplicación para el procesamiento de notas de texto
  * @module Nota
  * @author Andrea Hernández Martín
  */
+import * as chalk from 'chalk';
 
+/**
+ * Color de las notas
+ * @type {color}
+ */
 export type color = 'Rojo' | 'Verde' | 'Azul' | 'Amarillo' | 'Magenta' | 'Cian';
 
 /**
