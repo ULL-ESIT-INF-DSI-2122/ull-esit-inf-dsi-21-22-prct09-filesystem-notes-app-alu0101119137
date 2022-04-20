@@ -1,6 +1,6 @@
 /**
  * Aplicación para el procesamiento de notas de texto
- * @module Nota
+ * @module Lista
  * @author Andrea Hernández Martín
  */
 
@@ -41,7 +41,7 @@ export class Lista {
    */
   addNota(nuevaNota: Nota): void {
     if (!this.findNota(nuevaNota.getTitulo())) {
-      writeFile(`./${this.userName}/${nuevaNota.getTitulo()}.json`, `${nuevaNota.getNota()}`, (err) => {
+      writeFile(`./${this.userName}/${nuevaNota.getTitulo()}.json`, `{\n${nuevaNota.getNota()}\n}`, (err) => {
         if (!err) {
           // console.log('Entra');
           console.log(chalk.default.green('Se ha añadido la nota correctamente'));
@@ -63,7 +63,7 @@ export class Lista {
    */
   modifyNota(nombre: string, nuevoTexto: string, nuevoColor: color): void {
     if (this.findNota(nombre)) {
-      writeFile(`${this.userName}/${nombre}`, `Titulo: ${nombre}\nCuerpo: ${nuevoTexto}\nColor: ${nuevoColor}\n}`, (err) => {
+      writeFile(`${this.userName}/${nombre}`, `{\n"Titulo": "${nombre}",\n"Cuerpo": "${nuevoTexto}",\n"Color": "${nuevoColor}"\n}\n}`, (err) => {
         if (!err) {
           console.log(chalk.default.green('Se ha modificado la nota correctamente'));
         } else {

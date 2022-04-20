@@ -3,6 +3,7 @@
  * @module Nota
  * @author Andrea Hernández Martín
  */
+
 import * as chalk from 'chalk';
 
 /**
@@ -52,7 +53,7 @@ export class Nota {
    * @returns Retorna la nota entera
    */
   getNota(): string {
-    const nota: string = `Titulo: ${this.titulo}\nCuerpo: ${this.cuerpo}\nColor: ${this.color}`;
+    const nota: string = `"Titulo": "${this.titulo}",\n"Cuerpo": "${this.cuerpo}",\n"Color": "${this.color}"`;
     return nota;
   }
 
