@@ -5,6 +5,7 @@
  */
 
 import * as chalk from "chalk";
+import {spawn} from "child_process";
 import {existsSync, writeFile} from "fs";
 import {color, Nota} from "./nota";
 
@@ -43,14 +44,12 @@ export class Lista {
     if (!this.findNota(nuevaNota.getTitulo())) {
       writeFile(`./${this.userName}/${nuevaNota.getTitulo()}.json`, `{\n${nuevaNota.getNota()}\n}`, (err) => {
         if (!err) {
-          // console.log('Entra');
           console.log(chalk.default.green('Se ha añadido la nota correctamente'));
         } else {
-          console.log(chalk.default.red('Se ha producido un error inesperado'));
+          console.log(chalk.default.red('Error. No se ha podido añadir la nota'));
         }
       });
     } else {
-      // console.log('Entra');
       console.log(chalk.default.red('Error. Ya existe una nota con ese nombre'));
     }
   }
@@ -67,7 +66,7 @@ export class Lista {
         if (!err) {
           console.log(chalk.default.green('Se ha modificado la nota correctamente'));
         } else {
-          console.log(chalk.default.red('Se ha producido un error inesperado'));
+          console.log(chalk.default.red('Error. No se ha podido modificar la nota'));
         }
       });
     } else {
@@ -75,8 +74,17 @@ export class Lista {
     }
   }
 
+  /**
+   * Método que elimina una nota
+   * @param nombre Nombre de la nota que se quiere eliminar
+   */
   deleteNota(nombre: string): void {
-
+    if (this.findNota(nombre)) {
+      spawn('rm', [`./${this.userName}/${nombre}.json`]);
+      console.log(chalk.default.green('Se ha eliminado la nota correctamente'));
+    } else {
+      console.log(chalk.default.red('Error. No existe ninguna nota con ese nombre'));
+    }
   }
 
   listarTitulos(): void {
