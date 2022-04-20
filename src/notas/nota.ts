@@ -83,5 +83,5 @@ export class Nota {
   }
 }
 
-const myNote = new Nota('Hola', 'Mi nombre es Andrea', 'Magenta');
-myNote.print();
+// const myNote = new Nota('Hola', 'Mi nombre es Andrea', 'Magenta');
+// myNote.print();
