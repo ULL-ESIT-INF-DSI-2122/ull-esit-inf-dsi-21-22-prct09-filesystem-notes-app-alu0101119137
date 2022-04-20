@@ -80,6 +80,9 @@ export class Nota {
       case 'Cian':
         console.log(chalk.default.cyan(this.getNota()));
         break;
+      default:
+        console.log(chalk.default.red('Error. Este color no está disponible'));
+        break;
     }
   }
 }

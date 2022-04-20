@@ -9,6 +9,7 @@ describe('Tests de la clase Nota', () => {
   const myNote3 = new Nota('Hola mundo', 'Practica 9 DSI', 'Verde');
   const myNote4 = new Nota('Hola mundo', 'Practica 9 DSI', 'Amarillo');
   const myNote5 = new Nota('Hola mundo', 'Practica 9 DSI', 'Cian');
+  const myNoteErr = new Nota('Hola mundo', 'Practica 9 DSI', 'Marron');
 
   it('Se crea una clase Nota correctamente', () => {
     expect(new Nota('Hola mundo', 'Practica 9 DSI', 'Magenta')).to.be.not.null;
@@ -24,7 +25,7 @@ describe('Tests de la clase Nota', () => {
     expect(myNote.getColor()).to.be.equal('Magenta');
   });
   it('Se accede a la información completa de la nota correctamente', () => {
-    expect(myNote.getNota()).to.be.equal('Titulo: Hola mundo\nCuerpo: Practica 9 DSI\nColor: Magenta');
+    expect(myNote.getNota()).to.be.equal('"Titulo": "Hola mundo",\n"Cuerpo": "Practica 9 DSI",\n"Color": "Magenta"');
   });
   it('Se imprime por consola la nota correctamente', () => {
     expect(myNote.print()).to.be.not.null;
@@ -33,5 +34,6 @@ describe('Tests de la clase Nota', () => {
     expect(myNote3.print()).to.be.not.null;
     expect(myNote4.print()).to.be.not.null;
     expect(myNote5.print()).to.be.not.null;
+    expect(myNoteErr.print()).to.be.not.null;
   });
 });
