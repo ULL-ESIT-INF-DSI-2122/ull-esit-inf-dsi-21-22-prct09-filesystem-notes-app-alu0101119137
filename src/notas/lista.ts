@@ -95,7 +95,3 @@ export class Lista {
 
   }
 }
-// const myNote = new Nota('Primera nota', 'Realizada por Andrea', 'Cian');
-// const myList = new Lista('Andrea');
-// myList.addNota(myNote);
-// myList.modifyNota('Primera Nota', 'modificacion nota', 'Cian');

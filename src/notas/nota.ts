@@ -10,7 +10,7 @@ import * as chalk from 'chalk';
  * Color de las notas
  * @type {color}
  */
-export type color = 'Rojo' | 'Verde' | 'Azul' | 'Amarillo' | 'Magenta' | 'Cian';
+// export type color = 'Rojo' | 'Verde' | 'Azul' | 'Amarillo' | 'Magenta' | 'Cian';
 
 /**
  * Clase Nota
@@ -83,6 +83,3 @@ export class Nota {
     }
   }
 }
-
-// const myNote = new Nota('Hola', 'Mi nombre es Andrea', 'Magenta');
-// myNote.print();

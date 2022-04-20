@@ -102,29 +102,32 @@ yargs.command({
   },
 });
 
-// yargs.command({
-//   command: 'remove',
-//   describe: 'Removes a note of the user',
-//   builder: {
-//     user: {
-//       describe: 'User name',
-//       demandOption: true,
-//       type: 'string',
-//     },
-//     title: {
-//       describe: 'Note Title',
-//       demandOption: true,
-//       type: 'string',
-//     },
-//   },
-//   handler(argv: { user: string; title: string; }) {
-//     if(typeof argv.user === 'string'){
-//       if(typeof argv.title === 'string'){
-//         const temp = new Collection(argv.user);
-//         temp.removeNote(argv.title);
-//       }
-//     }
-//   },
-// });
+/**
+ * Comando para eliminar una nota
+ */
+yargs.command({
+  command: 'remove',
+  describe: 'Eliminar una nota',
+  builder: {
+    user: {
+      describe: 'Nombre de usuario',
+      demandOption: true,
+      type: 'string',
+    },
+    title: {
+      describe: 'Nombre de la nota',
+      demandOption: true,
+      type: 'string',
+    },
+  },
+  handler(argv) {
+    if (typeof argv.user === 'string') {
+      if (typeof argv.title === 'string') {
+        const aux = new Lista(argv.user);
+        aux.deleteNota(argv.title);
+      }
+    }
+  },
+});
 
 yargs.parse();
