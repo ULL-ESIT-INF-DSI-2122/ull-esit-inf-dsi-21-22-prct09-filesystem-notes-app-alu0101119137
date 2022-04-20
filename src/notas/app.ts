@@ -9,7 +9,9 @@ import {Nota} from './nota';
 import {Lista} from './lista';
 const spawn = require('child_process').spawn;
 
-
+/**
+ * Comando add para añadir una nota
+ */
 yargs.command({
   command: 'add',
   describe: 'Añadir una nota',
@@ -57,5 +59,72 @@ yargs.command({
     }
   },
 });
+
+/**
+ * Comando para modificar una nota
+ */
+yargs.command({
+  command: 'mod',
+  describe: 'Modificar una nota',
+  builder: {
+    user: {
+      describe: 'Nombre de usuario',
+      demandOption: true,
+      type: 'string',
+    },
+    title: {
+      describe: 'Titulo de la nota',
+      demandOption: true,
+      type: 'string',
+    },
+    body: {
+      describe: 'Cuerpo de la nota',
+      demandOption: true,
+      type: 'string',
+    },
+    color: {
+      describe: 'Color de la nota',
+      demandOption: true,
+      type: 'string',
+    },
+  },
+  handler(argv) {
+    if (typeof argv.user === 'string') {
+      if (typeof argv.title === 'string') {
+        if (typeof argv.body === 'string') {
+          if (typeof argv.color === 'string') {
+            const aux = new Lista(argv.user);
+            aux.modifyNota(argv.title, argv.body, argv.color);
+          }
+        }
+      }
+    }
+  },
+});
+
+// yargs.command({
+//   command: 'remove',
+//   describe: 'Removes a note of the user',
+//   builder: {
+//     user: {
+//       describe: 'User name',
+//       demandOption: true,
+//       type: 'string',
+//     },
+//     title: {
+//       describe: 'Note Title',
+//       demandOption: true,
+//       type: 'string',
+//     },
+//   },
+//   handler(argv: { user: string; title: string; }) {
+//     if(typeof argv.user === 'string'){
+//       if(typeof argv.title === 'string'){
+//         const temp = new Collection(argv.user);
+//         temp.removeNote(argv.title);
+//       }
+//     }
+//   },
+// });
 
 yargs.parse();

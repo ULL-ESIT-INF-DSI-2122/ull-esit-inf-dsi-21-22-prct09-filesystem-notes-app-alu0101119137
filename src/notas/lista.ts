@@ -7,7 +7,7 @@
 import * as chalk from "chalk";
 import {spawn} from "child_process";
 import {existsSync, writeFile} from "fs";
-import {color, Nota} from "./nota";
+import {Nota} from "./nota";
 
 /**
  * Clase Lista
@@ -60,9 +60,9 @@ export class Lista {
    * @param nuevoTexto El texto a modificar
    * @param nuevoColor El color de la nota que se quiere modificar
    */
-  modifyNota(nombre: string, nuevoTexto: string, nuevoColor: color): void {
+  modifyNota(nombre: string, nuevoTexto: string, nuevoColor: string): void {
     if (this.findNota(nombre)) {
-      writeFile(`${this.userName}/${nombre}`, `{\n"Titulo": "${nombre}",\n"Cuerpo": "${nuevoTexto}",\n"Color": "${nuevoColor}"\n}\n}`, (err) => {
+      writeFile(`./${this.userName}/${nombre}.json`, `{\n"Titulo": "${nombre}",\n"Cuerpo": "${nuevoTexto}",\n"Color": "${nuevoColor}"\n}`, (err) => {
         if (!err) {
           console.log(chalk.default.green('Se ha modificado la nota correctamente'));
         } else {
