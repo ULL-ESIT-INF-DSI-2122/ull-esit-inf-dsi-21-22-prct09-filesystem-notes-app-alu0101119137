@@ -130,4 +130,25 @@ yargs.command({
   },
 });
 
+/**
+ * Comando para listar todas las notas de un usuario
+ */
+yargs.command({
+  command: 'list',
+  describe: 'Listar todas las notas del usuario',
+  builder: {
+    user: {
+      describe: 'Nombre de usuario',
+      demandOption: true,
+      type: 'string',
+    },
+  },
+  handler(argv) {
+    if (typeof argv.user === 'string') {
+      const aux = new Lista(argv.user);
+      aux.listarTitulos();
+    }
+  },
+});
+
 yargs.parse();

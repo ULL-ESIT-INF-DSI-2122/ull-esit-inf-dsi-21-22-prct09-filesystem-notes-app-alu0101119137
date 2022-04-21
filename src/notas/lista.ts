@@ -98,24 +98,24 @@ export class Lista {
         readFile(`./${this.userName}/${nota}`, (err, data) => {
           if (!err) {
             const dataJson = JSON.parse(data.toString());
-            switch (dataJson.color) {
+            switch (dataJson.Color) {
               case 'Rojo':
-                console.log(chalk.default.red(dataJson.titulo));
+                console.log(chalk.default.red(dataJson.Titulo));
                 break;
               case 'Verde':
-                console.log(chalk.default.green(dataJson.titulo));
+                console.log(chalk.default.green(dataJson.Titulo));
                 break;
               case 'Azul':
-                console.log(chalk.default.blue(dataJson.titulo));
+                console.log(chalk.default.blue(dataJson.Titulo));
                 break;
               case 'Amarillo':
-                console.log(chalk.default.yellow(dataJson.titulo));
+                console.log(chalk.default.yellow(dataJson.Titulo));
                 break;
               case 'Magenta':
-                console.log(chalk.default.magenta(dataJson.titulo));
+                console.log(chalk.default.magenta(dataJson.Titulo));
                 break;
               case 'Cian':
-                console.log(chalk.default.cyan(dataJson.titulo));
+                console.log(chalk.default.cyan(dataJson.Titulo));
                 break;
               default:
                 console.log(chalk.default.red('Error. Este color no está disponible'));
