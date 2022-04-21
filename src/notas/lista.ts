@@ -131,7 +131,44 @@ export class Lista {
     }
   }
 
+  /**
+   * Método que lee una nota según el nombre que se le pase
+   * @param nombre Nombre de la nota que se quiere leer
+   */
   leerNota(nombre: string): void {
-
+    if (this.findNota(nombre)) {
+      readFile(`./${this.userName}/${nombre}.json`, (err, data) => {
+        if (!err) {
+          const dataJson = JSON.parse(data.toString());
+          switch (dataJson.Color) {
+            case 'Rojo':
+              console.log(chalk.default.red(`\n${dataJson.Titulo}\n${dataJson.Cuerpo}\n`));
+              break;
+            case 'Verde':
+              console.log(chalk.default.green(`\n${dataJson.Titulo}\n${dataJson.Cuerpo}\n`));
+              break;
+            case 'Azul':
+              console.log(chalk.default.blue(`\n${dataJson.Titulo}\n${dataJson.Cuerpo}\n`));
+              break;
+            case 'Amarillo':
+              console.log(chalk.default.yellow(`\n${dataJson.Titulo}\n${dataJson.Cuerpo}\n`));
+              break;
+            case 'Magenta':
+              console.log(chalk.default.magenta(`\n${dataJson.Titulo}\n${dataJson.Cuerpo}\n`));
+              break;
+            case 'Cian':
+              console.log(chalk.default.cyan(`\n${dataJson.Titulo}\n${dataJson.Cuerpo}\n`));
+              break;
+            default:
+              console.log(chalk.default.red('Error. Este color no está disponible'));
+              break;
+          }
+        } else {
+          console.log(chalk.default.red('Error. No se pudo leer la nota deseada'));
+        }
+      });
+    } else {
+      console.log(chalk.default.red('Error. No existe una nota con ese nombre'));
+    }
   }
 }
