@@ -7,12 +7,6 @@
 import * as chalk from 'chalk';
 
 /**
- * Color de las notas
- * @type {color}
- */
-// export type color = 'Rojo' | 'Verde' | 'Azul' | 'Amarillo' | 'Magenta' | 'Cian';
-
-/**
  * Clase Nota
  */
 export class Nota {

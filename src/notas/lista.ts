@@ -6,7 +6,7 @@
 
 import * as chalk from "chalk";
 import {spawn} from "child_process";
-import {existsSync, writeFile} from "fs";
+import {existsSync, readdirSync, readFile, writeFile} from "fs";
 import {Nota} from "./nota";
 
 /**
@@ -87,8 +87,48 @@ export class Lista {
     }
   }
 
+  /**
+   * Método que muestra por consola todas las notas que tiene un usuario
+   * con su color correspondiente
+   */
   listarTitulos(): void {
-
+    if (existsSync(`./${this.userName}`)) {
+      const lista = readdirSync(`./${this.userName}`);
+      lista.forEach((nota) => {
+        readFile(`./${this.userName}/${nota}`, (err, data) => {
+          if (!err) {
+            const dataJson = JSON.parse(data.toString());
+            switch (dataJson.color) {
+              case 'Rojo':
+                console.log(chalk.default.red(dataJson.titulo));
+                break;
+              case 'Verde':
+                console.log(chalk.default.green(dataJson.titulo));
+                break;
+              case 'Azul':
+                console.log(chalk.default.blue(dataJson.titulo));
+                break;
+              case 'Amarillo':
+                console.log(chalk.default.yellow(dataJson.titulo));
+                break;
+              case 'Magenta':
+                console.log(chalk.default.magenta(dataJson.titulo));
+                break;
+              case 'Cian':
+                console.log(chalk.default.cyan(dataJson.titulo));
+                break;
+              default:
+                console.log(chalk.default.red('Error. Este color no está disponible'));
+                break;
+            }
+          } else {
+            console.log(chalk.default.red('Error. No se pudo leer la nota'));
+          }
+        });
+      });
+    } else {
+      console.log(chalk.default.red('Error. No existen listas para este usuario'));
+    }
   }
 
   leerNota(nombre: string): void {
