@@ -2,7 +2,10 @@
   "entryPoints": [
     "./src/modificacion/reduce.ts",
     "./src/modificacion/addReduce.ts",
-    "./src/modificacion/index.ts"
+    "./src/modificacion/index.ts",
+    "./src/notas/nota.ts",
+    "./src/notas/app.ts",
+    "./src/notas/lista.ts"
   ],
   "out": "./docs"
 }
