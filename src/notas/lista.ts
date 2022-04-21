@@ -45,8 +45,6 @@ export class Lista {
       writeFile(`./${this.userName}/${nuevaNota.getTitulo()}.json`, `{\n${nuevaNota.getNota()}\n}`, (err) => {
         if (!err) {
           console.log(chalk.default.green('Se ha añadido la nota correctamente'));
-        } else {
-          console.log(chalk.default.red('Error. No se ha podido añadir la nota'));
         }
       });
     } else {
@@ -65,8 +63,6 @@ export class Lista {
       writeFile(`./${this.userName}/${nombre}.json`, `{\n"Titulo": "${nombre}",\n"Cuerpo": "${nuevoTexto}",\n"Color": "${nuevoColor}"\n}`, (err) => {
         if (!err) {
           console.log(chalk.default.green('Se ha modificado la nota correctamente'));
-        } else {
-          console.log(chalk.default.red('Error. No se ha podido modificar la nota'));
         }
       });
     } else {
@@ -121,8 +117,6 @@ export class Lista {
                 console.log(chalk.default.red('Error. Este color no está disponible'));
                 break;
             }
-          } else {
-            console.log(chalk.default.red('Error. No se pudo leer la nota'));
           }
         });
       });
