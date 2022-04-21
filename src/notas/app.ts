@@ -151,4 +151,32 @@ yargs.command({
   },
 });
 
+/**
+ * Comando para leer una nota según el nombre
+ */
+yargs.command({
+  command: 'read',
+  describe: 'Listar todas las notas del usuario',
+  builder: {
+    user: {
+      describe: 'Nombre de usuario',
+      demandOption: true,
+      type: 'string',
+    },
+    title: {
+      describe: 'Nombre de la nota',
+      demandOption: true,
+      type: 'string',
+    },
+  },
+  handler(argv) {
+    if (typeof argv.user === 'string') {
+      if (typeof argv.title === 'string') {
+        const aux = new Lista(argv.user);
+        aux.leerNota(argv.title);
+      }
+    }
+  },
+});
+
 yargs.parse();
