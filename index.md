@@ -57,7 +57,141 @@ export class Nota {
   }
 }
 ```
-- **Clase Lista:** 
+- **Clase Lista:** esta clase es la encargada de realizar las operaciones de un usuario con las notas, es decir, la encargada de modificar una nota, añadir otra, eliminarla, etc. Para ello, en el constructor de dicha clase recibe como parámetro el nombre del usuario, ya que un usuario no va a poder eliminar ni ver las notas de otros usuarios. Para acceder al nombre del usuario se creó un `getter` de dicho atributo. Luego, la clase tiene varios métodos más complejos que se van a comentar a continuacion:
+    - *findNota*: este método recibe el nombre de la nota que quiere buscar en el directorio del usuario y retorna verdadero en caso de que haya encontrado la nota y falso en caso contrario.  
+    **Código:**
+    ```ts
+    findNota(nombre: string): boolean {
+      return (existsSync(`./${this.userName}/${nombre}.json`)) ? true : false;
+    }
+    ```
+    - *addNota*: con este método permitimos al usuario añadir una nota a su directorio que contiene todas las notas, en caso de que dicho directorio no exista debido a que es la primera nota que se introduce, se crea el directorio con el nombre del usuario y dentro la nota que se quiere añadir. Si la nota se añade se muestra por consola un mensaje indicando que se ha añadido correctamente, en el caso de que el nombre de la nota ya exista, muestra un mensaje de error, ya que no pueden haber dos notas con el mismo título.  
+    **Código:**
+    ```ts
+    addNota(nuevaNota: Nota): void {
+      if (!this.findNota(nuevaNota.getTitulo())) {
+        writeFile(`./${this.userName}/${nuevaNota.getTitulo()}.json`, `{\n${nuevaNota.getNota()}\n}`, (err) => {
+          if (!err) {
+            console.log(chalk.default.green('Se ha añadido la nota correctamente'));
+          }
+        });
+      } else {
+        console.log(chalk.default.red('Error. Ya existe una nota con ese nombre'));
+      } 
+    }
+    ```
+    - *modifyNota*: con este método permitimos al usuario modificar una nota existente, en caso de que dicha nota no exista, se muestra un mensaje de error indicando que el nombre de la nota no existe. En caso de que si exista, se modifica la nota escribiendo en ella, los datos que recibe la función, los cuales son el nombre de la nota, el texto nuevo que se quiere escribir en la nota y su color nuevo.  
+    **Código:**
+    ```ts
+    modifyNota(nombre: string, nuevoTexto: string, nuevoColor: string): void {
+      if (this.findNota(nombre)) {
+        writeFile(`./${this.userName}/${nombre}.json`, `{\n"Titulo": "${nombre}",\n"Cuerpo": "${nuevoTexto}",\n"Color": "${nuevoColor}"\n}`, (err) => {
+          if (!err) {
+            console.log(chalk.default.green('Se ha modificado la nota correctamente'));
+          }
+        });
+      } else {
+        console.log(chalk.default.red('Error. No existe ninguna nota con ese nombre'));
+      }
+    }
+    ```
+    - *deleteNota*: a este método se le pasa el nombre de la nota que se quiere eliminar permitiendo así al usuario eliminar una nota existente, en caso de que dicha nota no exista, se muestra un mensaje de error indicando que el nombre de la nota no existe. En caso de que si exista, se elimina la nota mediante `spawn('rm', ...)`.  
+    **Código:**
+    ```ts
+    deleteNota(nombre: string): void {
+      if (this.findNota(nombre)) {
+        spawn('rm', [`./${this.userName}/${nombre}.json`]);
+        console.log(chalk.default.green('Se ha eliminado la nota correctamente'));
+      } else {
+        console.log(chalk.default.red('Error. No existe ninguna nota con ese nombre'));
+      }
+    }
+    ```
+    - *listarTitulos*: con este método permitimos al usuario mostrar todos los títulos de las notas que están en su directorio de notas, en caso de que dicho usuario no tenga ninguna nota muestra por pantalla un mensaje de error indicando que no hay notas que mostrar. En caso de que si tenga notas, muestra por pantalla los títulos de las notas con su correspondiente color.  
+    **Código:**
+    ```ts
+    listarTitulos(): void {
+      if (existsSync(`./${this.userName}`)) {
+        const lista = readdirSync(`./${this.userName}`);
+        lista.forEach((nota) => {
+          readFile(`./${this.userName}/${nota}`, (err, data) => {
+            if (!err) {
+              const dataJson = JSON.parse(data.toString());
+              switch (dataJson.Color) {
+                case 'Rojo':
+                  console.log(chalk.default.red(dataJson.Titulo));
+                  break;
+                case 'Verde':
+                  console.log(chalk.default.green(dataJson.Titulo));
+                  break;
+                case 'Azul':
+                  console.log(chalk.default.blue(dataJson.Titulo));
+                  break;
+                case 'Amarillo':
+                  console.log(chalk.default.yellow(dataJson.Titulo));
+                  break;
+                case 'Magenta':
+                  console.log(chalk.default.magenta(dataJson.Titulo));
+                  break;
+                case 'Cian':
+                  console.log(chalk.default.cyan(dataJson.Titulo));
+                  break;
+                default:
+                  console.log(chalk.default.red('Error. Este color no está disponible'));
+                  break;
+              }
+            }
+          });
+        });
+      } else {
+        console.log(chalk.default.red('Error. No existen listas para este usuario'));
+      }
+    }
+    ```
+    - *leerNota*: este método permite al usuario leer el cuerpo de una nota específica, para ello la función recibe como parámetro el nombre de la nota se que quiere leer. LA implementación de este método es muy parecida a la del método anterior. En caso de que la nota se que quiera leer no exista, se muestra un mensaje de error por la consola; en caso contrario, muestra por consola el título de la nota y el cuerpo con su color correspondiente.   
+    **Código:**
+    ```ts
+    leerNota(nombre: string): void {
+      if (this.findNota(nombre)) {
+        readFile(`./${this.userName}/${nombre}.json`, (err, data) => {
+          if (!err) {
+            const dataJson = JSON.parse(data.toString());
+            switch (dataJson.Color) {
+              case 'Rojo':
+                console.log(chalk.default.red(`Titulo: ${dataJson.Titulo}\nCuerpo: ${dataJson.Cuerpo}`));
+                break;
+              case 'Verde':
+                console.log(chalk.default.green(`Titulo: ${dataJson.Titulo}\nCuerpo: ${dataJson.Cuerpo}`));
+                break;
+              case 'Azul':
+                console.log(chalk.default.blue(`Titulo: ${dataJson.Titulo}\nCuerpo: ${dataJson.Cuerpo}`));
+                break;
+              case 'Amarillo':
+                console.log(chalk.default.yellow(`Titulo: ${dataJson.Titulo}\nCuerpo: ${dataJson.Cuerpo}`));
+                break;
+              case 'Magenta':
+                console.log(chalk.default.magenta(`Titulo: ${dataJson.Titulo}\nCuerpo: ${dataJson.Cuerpo}`));
+                break;
+              case 'Cian':
+                console.log(chalk.default.cyan(`Titulo: ${dataJson.Titulo}\nCuerpo: ${dataJson.Cuerpo}`));
+                break;
+              default:
+                console.log(chalk.default.red('Error. Este color no está disponible'));
+                break;
+            }
+          } else {
+            console.log(chalk.default.red('Error. No se pudo leer la nota deseada'));
+          }
+        });
+      } else {
+        console.log(chalk.default.red('Error. No existe una nota con ese nombre'));
+      }
+    }
+    ```
+- **Fichero App:**  este fichero se encarga de poner en funcionamiento el programa mediando el paquete `yargs`, se implementan los comandos `add`, `mod`, `delete`, `list`, `read` para que el usuario de la aplicación pueda utilizar los métodos necesarios para operar con las notas.  
+
+## Ejemplo de uso de la aplicación  
+![]()
 
 ## Documentación TypeDoc  
 Para la documentación de los ejercicios utilicé la herramienta TypeDoc que convierte los comentarios en el código fuente de TypeScript en documentación HTML renderizada. A continuación, adjunto el enlace a la página web creada mediante TypeDoc.  
@@ -66,7 +200,7 @@ Para la documentación de los ejercicios utilicé la herramienta TypeDoc que con
 ## Testing
 Para la realización del testing de los ejercicios utilicé las herramientas Mocha y Chai.  
   
-He realizado pruebas sobre todos los ejercicios en los cuales compruebo que los valores pasados por parámetro dan el resultado esperado o al contrario, es decir, se comprueba que no dan el resultado esperado. Para ello he creado un fichero ejercicio-n.spec.ts por cada ejercicio y he añadido algunas pruebas de todas las funciones utilizadas.  
+He realizado pruebas sobre la aplicación en los cuales compruebo que los valores pasados por parámetro dan el resultado esperado o al contrario, es decir, se comprueba que no dan el resultado esperado. Para ello he creado un fichero clase.spec.ts por cada clase implementada y he añadido algunas pruebas de todas las funciones utilizadas.  
 
 A continuación muestro la salida en la terminal al ejecutar el test.  
 ```
