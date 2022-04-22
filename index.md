@@ -228,6 +228,8 @@ Tests de la clase Lista
 ```
 
 ## Configuración de Coveralls y Github Actions  
+[![Coverage Status](https://coveralls.io/repos/github/ULL-ESIT-INF-DSI-2122/ull-esit-inf-dsi-21-22-prct09-filesystem-notes-app-alu0101119137/badge.svg?branch=main)](https://coveralls.io/github/ULL-ESIT-INF-DSI-2122/ull-esit-inf-dsi-21-22-prct09-filesystem-notes-app-alu0101119137?branch=main)
+
 
 ## Conclusiones  
 Esta práctica me ha resultado bastante sencilla e interesante, debido a que he aprendido a utilizar el paquete yargs con el que no había trabajado nunca y me pareció bastante útil, además al utilizar el paquete chalk para los colores de la nota me pareció muy interesante y una forma nueva de ver los datos de la consola de manera más bonita. La parte que me resultó más compleja fue la parte de cómo leer de un directorio todas las notas que habían, pero supe realizarla buscando en la documentación de Nodejs. En cuanto a la parte de documentación y testing al haberla realizado en todas las prácticas anteriores no me ha supuesto ningún inconveniente. Al igual que coveralls y sonarcloud, las cuales se han realizado con las github actions.  
